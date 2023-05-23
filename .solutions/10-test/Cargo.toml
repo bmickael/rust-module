@@ -1,0 +1,35 @@
+[package]
+name = "panic-and-log"
+version = "0.1.0"
+edition = "2021"
+license = "MIT/Apache-2.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib"]
+
+[features]
+default = ["console_error_panic_hook"]
+
+[dependencies]
+wasm-bindgen = "0.2.86"
+wasm-logger = "0.2.0"
+log = "0.4.6"
+
+# La crate `console_error_panic_hook` permet d'ameliorer le debogage des panic
+# en les affichant avec `console.error`. C'est tres utile pour le
+# developpement, mais il necessite toute l'infrastructure de `std::fmt` et de
+# `std::panicking`, donc ce n'est pas tres optimise pour la taille du code
+# lorsque nous deployons.
+console_error_panic_hook = { version = "0.1.1", optional = true }
+    
+[dependencies.web-sys]
+version = "0.3.63"
+features = [
+  'Document',
+  'Element',
+  'HtmlElement',
+  'Node',
+  'Window',
+]
